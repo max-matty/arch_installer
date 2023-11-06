@@ -60,3 +60,4 @@ pandoc,texlive-basic,Pandoc necessary packages
 pandoc,texlive-latex,Pandoc necessary packages
 pandoc,texlive-latexextra,Pandoc necessary packages
 pandoc,texlive-xetex,Pandoc necessary packages
+pandoc,texlive-fontsrecommended,Pandoc necessary packages

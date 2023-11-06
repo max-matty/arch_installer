@@ -23,10 +23,10 @@ apps=("essential" "Essentials" on
       "zsh" "The Z-Shell (zsh)" on
       "neovim" "Neovim" on
       "urxvt" "URxvt" on
-      "chromium" "Chromium (browser)" off
-      "pandoc" "Pandoc" off
-      "js" "JavaScript tooling" off
-      "zathura" "Zathura (pdf viewer)" off)
+      "chromium" "Chromium (browser)" on
+      "pandoc" "Pandoc" on
+      "js" "JavaScript tooling" on
+      "zathura" "Zathura (pdf viewer)" on)
 
 dialog --checklist \
 "You can now choose what group of application you want to install. \n\n\
@@ -75,6 +75,9 @@ echo "$packages" | while read -r line; do
 done
 
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+
+# Uncomment to set the keymap you want. Replace "fr" by your country code
+localectl --no-convert set-x11-keymap it
 
 # Don't forget to replace "Phantas0s" by the username of your Github account
 curl https://raw.githubusercontent.com/max-matty\
