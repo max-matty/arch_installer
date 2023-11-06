@@ -1,29 +1,42 @@
 essential,xorg,X server
 essential,xorg-xinit,Display server boot
+essential,os-prober,GRUB Find external OS
 essential,man,Manual
 essential,man-pages,Manual pages
+essential,tldr,Manual pages
+essential,alsa-ultils,Sound system manager
+essential,fd,Find entries in Filesystem
+essential,vi,Text editor
 network,openssh,Remote login tool for SSH protocol
 network,networkmanager,Network manager
+network,network-manager-applet,Network manager Applet
 tools,rsync,Synchronizing files across computers
 tools,arandr,xrandr GUI
+tools,tree,Show directory tree
+tools,rxvt-unicode,terminal emulator
 tools,xsel,Manipulate the X selection
 tools,fzf,Command line fuzzy finder
 tools,scrot,Screenshot software
+tools,imagemagick,Image manipulation tool
 tools,udiskie,Automount devices
 tools,lxappearance,Theme switcher for GTK+
 tools,xcape,Configure modifier keys to act as other keys
 tools,ripgrep,Faster alternative to grep
 tools,htop,Interactive process viewer
+tools,unzip,Zip archiver
 tmux,tmux,Terminal multiplexer
 tmux,tmuxp,Configure tmux session + windows + panes via config files
 notifier,dunst,Notification system
 notifier,libnotify,Notifier
 git,git,Version control system
+git,git-delta,Syntax highlighting fot git
 git,diff-so-fancy,Human readable git diff
 i3,i3-wm,i3 window tile manager
 i3,i3status,i3 status bar
 i3,i3lock,i3 lock monitor
+i3,xss-lock,i3 lock monitor
 i3,dmenu,Dynamic menu for X
+i3,rofi,Dynamic menu for X
 i3,feh,X11 image viewer
 i3,arc-gtk-theme,Desktop themes
 zsh,zsh,Unix shell (Z-Shell)
@@ -34,10 +47,22 @@ neovim,python-neovim,Python for neovim
 neovim,python2-neovim,Python2 for neovim (AUR)
 neovim,ruby-neovim,Ruby for neovim (AUR)
 neovim,nodejs-neovim,Nodejs for neovim (AUR)
+neovim,glow,Markdown rendering
 js,nodejs,Nodejs (for coc.vim)
+js,npm,JavaScript package manager
 js,yarn,Dependency manager (for coc.vim)
 urxvt,rxvt-unicode,Terminal Urxvt
 urxvt,urxvt-tabbedex-mina86-git,Improved tabs for Urxvt (AUR)
-firefox,firefox,Browser Firefox
-qutebrowser,qutebrowser,Qutebrowser
-lynx,lynx,Text-based browser
+chromium,chromium,Browser Chromium
+zathura,zathura-pdf-mupdf,Pdf viewer
+pandoc,texlive-,Document formatting system
+pandoc,pandoc-cli,Pandoc necessary packages
+pandoc,texlive-basic,Pandoc necessary packages
+pandoc,texlive-bin,Pandoc necessary packages
+pandoc,texlive-core,Pandoc necessary packages
+pandoc,texlive-fontsrecommended,Pandoc necessary packages
+pandoc,texlive-latex,Pandoc necessary packages
+pandoc,texlive-latexextra,Pandoc necessary packages
+pandoc,texlive-latexrecommanded,Pandoc necessary packages
+pandoc,texlive-picture,Pandoc necessary packages
+pandoc,texlive-xetex,Pandoc necessary packages
