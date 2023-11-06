@@ -10,10 +10,9 @@ network,openssh,Remote login tool for SSH protocol
 network,networkmanager,Network manager
 network,network-manager-applet,Network manager Applet
 tools,rsync,Synchronizing files across computers
-tools,alsa-ultils,Sound system manager
+tools,alsa-utils,Sound system manager
 tools,arandr,xrandr GUI
 tools,tree,Show directory tree
-tools,rxvt-unicode,terminal emulator
 tools,xsel,Manipulate the X selection
 tools,fzf,Command line fuzzy finder
 tools,scrot,Screenshot software
@@ -58,11 +57,6 @@ zathura,zathura-pdf-mupdf,Pdf viewer
 pandoc,groff,Document formatting system
 pandoc,pandoc-cli,Pandoc necessary packages
 pandoc,texlive-basic,Pandoc necessary packages
-pandoc,texlive-bin,Pandoc necessary packages
-pandoc,texlive-core,Pandoc necessary packages
-pandoc,texlive-fontsrecommended,Pandoc necessary packages
 pandoc,texlive-latex,Pandoc necessary packages
 pandoc,texlive-latexextra,Pandoc necessary packages
-pandoc,texlive-latexrecommanded,Pandoc necessary packages
-pandoc,texlive-picture,Pandoc necessary packages
 pandoc,texlive-xetex,Pandoc necessary packages
