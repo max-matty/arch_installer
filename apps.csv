@@ -4,13 +4,13 @@ essential,os-prober,GRUB Find external OS
 essential,man,Manual
 essential,man-pages,Manual pages
 essential,tldr,Manual pages
-essential,alsa-ultils,Sound system manager
 essential,fd,Find entries in Filesystem
 essential,vi,Text editor
 network,openssh,Remote login tool for SSH protocol
 network,networkmanager,Network manager
 network,network-manager-applet,Network manager Applet
 tools,rsync,Synchronizing files across computers
+tools,alsa-ultils,Sound system manager
 tools,arandr,xrandr GUI
 tools,tree,Show directory tree
 tools,rxvt-unicode,terminal emulator
@@ -55,7 +55,7 @@ urxvt,rxvt-unicode,Terminal Urxvt
 urxvt,urxvt-tabbedex-mina86-git,Improved tabs for Urxvt (AUR)
 chromium,chromium,Browser Chromium
 zathura,zathura-pdf-mupdf,Pdf viewer
-pandoc,texlive-,Document formatting system
+pandoc,groff,Document formatting system
 pandoc,pandoc-cli,Pandoc necessary packages
 pandoc,texlive-basic,Pandoc necessary packages
 pandoc,texlive-bin,Pandoc necessary packages
