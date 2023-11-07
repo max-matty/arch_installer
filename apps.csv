@@ -61,3 +61,4 @@ pandoc,texlive-latex,Pandoc necessary packages
 pandoc,texlive-latexextra,Pandoc necessary packages
 pandoc,texlive-xetex,Pandoc necessary packages
 pandoc,texlive-fontsrecommended,Pandoc necessary packages
+spice,spice-vdagent,Spice server

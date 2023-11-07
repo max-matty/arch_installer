@@ -26,7 +26,8 @@ apps=("essential" "Essentials" on
       "chromium" "Chromium (browser)" on
       "pandoc" "Pandoc" on
       "js" "JavaScript tooling" on
-      "zathura" "Zathura (pdf viewer)" on)
+      "zathura" "Zathura (pdf viewer)" on
+      "spice" "Spice server (for VM)" on)
 
 dialog --checklist \
 "You can now choose what group of application you want to install. \n\n\
