@@ -1,8 +1,9 @@
 #!/bin/bash
 
 uefi=$(cat /var_uefi); hd=$(cat /var_hd);
+inst=$(cat /inst); comp=$(cat /comp);
 
-cat /comp > /etc/hostname && rm /comp
+echo "$comp" > /etc/hostname && rm /comp
 
 pacman --noconfirm -S dialog
 
@@ -81,8 +82,9 @@ dialog --title "Add User" \
     10 60
 config_user
 
-# Save your username for the next script.
+# Persist important values for the next script
 echo "$name" > /tmp/user_name
+echo "$inst" > /tmp/inst
 
 # Ask to install all your apps / dotfiles.
 # Don't forget to replace "Phantas0s" by the username of your Github account!

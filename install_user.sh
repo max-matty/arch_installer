@@ -1,5 +1,7 @@
 #!/bin/bash
 
+inst=$(cat /tmp/inst)
+
 mkdir -p "/home/$(whoami)/Documents"
 mkdir -p "/home/$(whoami)/Downloads"
 
@@ -53,6 +55,8 @@ fi
 source "$DOTFILES/zsh/.zshenv"
 cd "$DOTFILES" && bash install.sh
 
-# i3-wm modifica tasto $mod
-cd "$DOTFILES/i3/" && sed -i 's/Mod4/Mod1/' config
+# i3-wm modifica tasto $mod in caso di VM
+if [ "$inst" = "VM" ]; then
+  cd "$DOTFILES/i3/" && sed -i 's/Mod4/Mod1/' config
+fi
 

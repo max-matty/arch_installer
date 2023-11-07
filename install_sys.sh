@@ -21,6 +21,14 @@ comp=$(cat comp) && rm comp
 uefi=0
 ls /sys/firmware/efi/efivars 2> /dev/null && uefi=1
 
+# Verifica installazione su HD o Macchina Virtuale (VM)
+dialog --title "Installazione OS" --no-cancel --radiolist \
+"\nDove vuoi installare il sistema operativo? \n\
+Selezione tramite lo spazio e premi ENTER.\n\n" \
+12 50 3 "HD" "Hard Disk" off "VM" "Macchina Virtuale" on 2> inst
+
+inst=$(cat inst) && rm inst
+
 # Choosing the hard drive
 devices_list=($(lsblk -d | awk '{print "/dev/" $1 " " $4 " on"}' \
     | grep -E 'sd|hd|vd|nvme|mmcblk'))
@@ -131,9 +139,10 @@ pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Persist important values for the next script
+echo "$inst" > /mnt/inst
 echo "$uefi" > /mnt/var_uefi
 echo "$hd" > /mnt/var_hd
-mv comp /mnt/comp
+echo "$comp" > /mnt/comp
 
 # Don't forget to replace "Phantas0s" by the username of your Github account
 curl https://raw.githubusercontent.com/max-matty\
@@ -147,8 +156,8 @@ rm /mnt/install_chroot.sh
 rm /mnt/comp
 
 dialog --title "To reboot or not to reboot?" --yesno \
-"Congrats! The install is done! \n\n
-Some PostInstall instruction in ~/dotfiles/README.md file\n\n
+"Congrats! The install is done! \n\n\
+Some PostInstall instruction in ~/dotfiles/README.md file\n\n\
 Do you want to reboot your computer?" 20 60
 
 response=$?
