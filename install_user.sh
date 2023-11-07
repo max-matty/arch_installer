@@ -52,3 +52,7 @@ fi
 
 source "$DOTFILES/zsh/.zshenv"
 cd "$DOTFILES" && bash install.sh
+
+# i3-wm modifica tasto $mod
+cd "$DOTFILES" && sed -i 's/Mod4/Mod1/' config
+
