@@ -140,6 +140,8 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # Persist important values for the next script
 echo "$inst" > /mnt/inst
+mkdir /mnt/root/.screenlayout
+echo "$inst" > /mnt/root/.screenlayout/var_inst
 echo "$uefi" > /mnt/var_uefi
 echo "$hd" > /mnt/var_hd
 echo "$comp" > /mnt/comp
@@ -150,6 +152,7 @@ curl https://raw.githubusercontent.com/max-matty\
 
 arch-chroot /mnt bash install_chroot.sh
 
+rm /mnt/inst
 rm /mnt/var_uefi
 rm /mnt/var_hd
 rm /mnt/install_chroot.sh

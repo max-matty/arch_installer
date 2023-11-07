@@ -4,9 +4,8 @@ inst=$(cat /tmp/inst)
 
 mkdir -p "/home/$(whoami)/Documents"
 mkdir -p "/home/$(whoami)/Downloads"
-
-# Uncomment to set the keymap you want. Replace "fr" by your country code
-#localectl --no-convert set-x11-keymap it
+mkdir "/home/$(whoami)/.screenlayout"
+echo "$inst" > "/home/$(whoami)/.screenlayout/var_inst"
 
 # Function able to install any package from the AUR (needs the package names as arguments).
 aur_install() {
