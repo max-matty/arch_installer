@@ -147,7 +147,8 @@ rm /mnt/install_chroot.sh
 rm /mnt/comp
 
 dialog --title "To reboot or not to reboot?" --yesno \
-"Congrats! The install is done! \n\n\
+"Congrats! The install is done! \n\n
+Some PostInstall instruction in ~/dotfiles/README.md file\n\n
 Do you want to reboot your computer?" 20 60
 
 response=$?

@@ -76,9 +76,6 @@ done
 
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
-# Uncomment to set the keymap you want. Replace "fr" by your country code
-localectl --no-convert set-x11-keymap it
-
 # Don't forget to replace "Phantas0s" by the username of your Github account
 curl https://raw.githubusercontent.com/max-matty\
 /arch_installer/master/install_user.sh > /tmp/install_user.sh;
