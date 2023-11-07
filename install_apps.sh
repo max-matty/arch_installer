@@ -76,7 +76,11 @@ done
 
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
-localectl --no-convert set-x11-keymap it
+echo 'Section "InputClass"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
+echo '        Identifier "system-keyboard"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
+echo '        MatchIsKeyboard "on"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
+echo '        Option "XkbLayout" "it"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
+echo 'EndSection' >> /etc/X11/xorg.conf.d/00-keyboard.conf
 
 # Don't forget to replace "Phantas0s" by the username of your Github account
 curl https://raw.githubusercontent.com/max-matty\
