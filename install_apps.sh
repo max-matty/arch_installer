@@ -85,6 +85,13 @@ echo '        MatchIsKeyboard "on"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
 echo '        Option "XkbLayout" "it"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
 echo 'EndSection' >> /etc/X11/xorg.conf.d/00-keyboard.conf
 
+if [ $inst = "VM" ]; then
+  mkdir "/home/$name/shared"
+  echo " " >> /etc/fstab
+  echo "# uncomment for shared directory with host" >> /etc/fstab
+  echo "#/shared    /home/<utente>/shared    virtriofs    defaults    0 0" >> /etc/fstab
+fi
+
 # Persist important values for the next script
 echo "$inst" > /tmp/inst
 
