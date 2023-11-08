@@ -59,3 +59,7 @@ if [ "$inst" = "VM" ]; then
   cd "$DOTFILES/i3/" && sed -i 's/Mod4/Mod1/' config
 fi
 
+# crea la directory condivisa in guest
+if [ $inst = "VM" ]; then
+  mkdir "/home/$name/shared"
+fi
