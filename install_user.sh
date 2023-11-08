@@ -61,5 +61,5 @@ fi
 
 # crea la directory condivisa in guest
 if [ $inst = "VM" ]; then
-  mkdir "/home/$name/shared"
+  mkdir "/home/$(whoami)/shared"
 fi
