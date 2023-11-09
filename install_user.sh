@@ -45,11 +45,7 @@ do
 done
 
 DOTFILES="/home/$(whoami)/dotfiles"
-
-if [ $inst = "VM" ]; then
-  mkdir -p "/home/$(whoami)/shared/dotfiles"
-  ln -s "/home/$(whoami)/shared/dotfiles" "$DOTFILES"
-  elif [ ! -d "$DOTFILES" ]; then
+if [ ! -d "$DOTFILES" ]; then
     # Don't forget to replace Phantas0s with your own username on Github
     git clone https://github.com/max-matty/dotfiles.git \
     "$DOTFILES" >/dev/null
