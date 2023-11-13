@@ -31,37 +31,37 @@ inst=$(cat inst) && rm inst
 
 # Choosing the hard drive
 devices_list=($(lsblk -d | awk '{print "/dev/" $1 " " $4 " on"}' \
-    | grep -E 'sd|hd|vd|nvme|mmcblk'))
+  | grep -E 'sd|hd|vd|nvme|mmcblk'))
 
 dialog --title "Choose your hard drive" --no-cancel --radiolist \
-"Where do you want to install your new system? \n\n\
-Select with SPACE, valid with ENTER. \n\n\
-WARNING: Everything will be DESTROYED on the hard disk!" \
-15 60 4 "${devices_list[@]}" 2> hd
+  "Where do you want to install your new system? \n\n\
+  Select with SPACE, valid with ENTER. \n\n\
+  WARNING: Everything will be DESTROYED on the hard disk!" \
+  15 60 4 "${devices_list[@]}" 2> hd
 
 hd=$(cat hd) && rm hd
 
 # Ask for the size of the swap partition
 default_size="8"
 dialog --no-cancel --inputbox \
-"You need four partitions: Boot, Root and Swap \n\
-The boot partition will be 512M \n\
-The root partition will be the remaining of the hard disk \n\n\
-Enter below the partition size (in Gb) for the Swap. \n\n\
-If you don't enter anything, it will default to ${default_size}G. \n" \
-20 60 2> swap_size
+  "You need four partitions: Boot, Root and Swap \n\
+  The boot partition will be 512M \n\
+  The root partition will be the remaining of the hard disk \n\n\
+  Enter below the partition size (in Gb) for the Swap. \n\n\
+  If you don't enter anything, it will default to ${default_size}G. \n" \
+  20 60 2> swap_size
 
 size=$(cat swap_size) && rm swap_size
 
 [[ $size =~ ^[0-9]+$ ]] || size=$default_size
 
 dialog --no-cancel \
---title "!!! DELETE EVERYTHING !!!" \
---menu "Choose the way you'll wipe your hard disk ($hd)" \
-15 60 4 \
-1 "Use dd (wipe all disk)" \
-2 "Use schred (slow & secure)" \
-3 "No need - my hard disk is empty" 2> eraser
+  --title "!!! DELETE EVERYTHING !!!" \
+  --menu "Choose the way you'll wipe your hard disk ($hd)" \
+  15 60 4 \
+  1 "Use dd (wipe all disk)" \
+  2 "Use schred (slow & secure)" \
+  3 "No need - my hard disk is empty" 2> eraser
 
 hderaser=$(cat eraser); rm eraser
 
