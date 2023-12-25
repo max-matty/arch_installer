@@ -82,21 +82,16 @@ done
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
 # Set locale for X server
-echo 'Section "InputClass"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
-echo '        Identifier "system-keyboard"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
-echo '        MatchIsKeyboard "on"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
-echo '        Option "XkbLayout" "it"' >> /etc/X11/xorg.conf.d/00-keyboard.conf
-echo 'EndSection' >> /etc/X11/xorg.conf.d/00-keyboard.conf
+{
+  echo 'Section "InputClass"'
+  echo '        Identifier "system-keyboard"'
+  echo '        MatchIsKeyboard "on"'
+  echo '        Option "XkbLayout" "it"'
+  echo 'EndSection'
+} >>/etc/X11/xorg.conf.d/00-keyboard.conf
 
 # Persist important values for the next script
 echo "$inst" > /tmp/inst
-
-# prepara /etc/fstab per poter montare la directory condivisa con host
-if [ $inst = "VM" ]; then
-  echo " " >> /etc/fstab
-  echo "# shared directory with host" >> /etc/fstab
-  echo "/shared    /home/$name/shared    virtiofs    defaults    0 0" >> /etc/fstab
-fi
 
 # Don't forget to replace "Phantas0s" by the username of your Github account
 curl https://raw.githubusercontent.com/max-matty\

@@ -7,80 +7,81 @@ timedatectl set-ntp true
 
 # Welcome message of type yesno - see `man dialog`
 dialog --defaultno --title "Are you sure?" --yesno \
-"This is my personnal arch linux install. \n\n\
+	"This is my personnal arch linux install. \n\n\
 It will just DESTROY EVERYTHING on the hard disk of your choice. \n\n\
 Don't say YES if you are not sure about what you're doing! \n\n\
 Are you sure?" 15 60 || exit
 
 dialog --no-cancel --inputbox "Enter a name for your computer." \
-    10 60 2> comp
+	10 60 2>comp
 
 comp=$(cat comp) && rm comp
 
 # Verify boot (UEFI or BIOS)
 uefi=0
-ls /sys/firmware/efi/efivars 2> /dev/null && uefi=1
+ls /sys/firmware/efi/efivars 2>/dev/null && uefi=1
 
 # Verifica installazione su HD o Macchina Virtuale (VM)
 dialog --title "Installazione OS" --no-cancel --radiolist \
-"\nDove vuoi installare il sistema operativo? \n\
+	"\nDove vuoi installare il sistema operativo? \n\
 Selezione tramite lo spazio e premi ENTER.\n\n" \
-12 50 3 "HD" "Hard Disk" off "VM" "Macchina Virtuale" on 2> inst
+	12 50 3 "HD" "Hard Disk" off "VM" "Macchina Virtuale" on 2>inst
 
 inst=$(cat inst) && rm inst
 
 # Choosing the hard drive
-devices_list=($(lsblk -d | awk '{print "/dev/" $1 " " $4 " on"}' \
-  | grep -E 'sd|hd|vd|nvme|mmcblk'))
+devices_list=($(lsblk -d | awk '{print "/dev/" $1 " " $4 " on"}' |
+	grep -E 'sd|hd|vd|nvme|mmcblk'))
 
 dialog --title "Choose your hard drive" --no-cancel --radiolist \
-  "Where do you want to install your new system? \n\n\
+	"Where do you want to install your new system? \n\n\
   Select with SPACE, valid with ENTER. \n\n\
   WARNING: Everything will be DESTROYED on the hard disk!" \
-  15 60 4 "${devices_list[@]}" 2> hd
+	15 60 4 "${devices_list[@]}" 2>hd
 
 hd=$(cat hd) && rm hd
 
 # Ask for the size of the swap partition
 default_size="8"
 dialog --no-cancel --inputbox \
-  "You need four partitions: Boot, Root and Swap \n\
+	"You need four partitions: Boot, Root and Swap \n\
   The boot partition will be 512M \n\
   The root partition will be the remaining of the hard disk \n\n\
   Enter below the partition size (in Gb) for the Swap. \n\n\
   If you don't enter anything, it will default to ${default_size}G. \n" \
-  20 60 2> swap_size
+	20 60 2>swap_size
 
 size=$(cat swap_size) && rm swap_size
 
 [[ $size =~ ^[0-9]+$ ]] || size=$default_size
 
 dialog --no-cancel \
-  --title "!!! DELETE EVERYTHING !!!" \
-  --menu "Choose the way you'll wipe your hard disk ($hd)" \
-  15 60 4 \
-  1 "Use dd (wipe all disk)" \
-  2 "Use schred (slow & secure)" \
-  3 "No need - my hard disk is empty" 2> eraser
+	--title "!!! DELETE EVERYTHING !!!" \
+	--menu "Choose the way you'll wipe your hard disk ($hd)" \
+	15 60 4 \
+	1 "Use dd (wipe all disk)" \
+	2 "Use schred (slow & secure)" \
+	3 "No need - my hard disk is empty" 2>eraser
 
-hderaser=$(cat eraser); rm eraser
+hderaser=$(cat eraser)
+rm eraser
 
 # This function can wipe out a hard disk.
 # DO NOT RUN THIS FUNCTION ON YOUR ACTUAL SYSTEM!
 # If you did it, DO NOT CALL IT!!
 # If you did it, I'm sorry.
 function eraseDisk() {
-    case $1 in
-        1) dd if=/dev/zero of="$hd" status=progress 2>&1 \
-            | dialog \
-            --title "Formatting $hd..." \
-            --progressbox --stdout 20 60;;
-        2) shred -v "$hd" \
-            | dialog \
-            --title "Formatting $hd..." \
-            --progressbox --stdout 20 60;;
-        3) ;;
-    esac
+	case $1 in
+	1) dd if=/dev/zero of="$hd" status=progress 2>&1 |
+		dialog \
+			--title "Formatting $hd..." \
+			--progressbox --stdout 20 60 ;;
+	2) shred -v "$hd" |
+		dialog \
+			--title "Formatting $hd..." \
+			--progressbox --stdout 20 60 ;;
+	3) ;;
+	esac
 }
 
 eraseDisk "$hderaser"
@@ -98,7 +99,7 @@ boot_partition_type=1
 
 partprobe "$hd"
 
-fdisk "$hd" << EOF
+fdisk "$hd" <<EOF
 g
 n
 
@@ -120,7 +121,7 @@ EOF
 partprobe "$hd"
 
 # Add a suffix "p" in case with have a NVMe controller chip
-echo "$hd" | grep -E 'nvme' &> /dev/null && hd="${hd}p"
+echo "$hd" | grep -E 'nvme' &>/dev/null && hd="${hd}p"
 
 # Format the partitions
 mkswap "${hd}2"
@@ -129,26 +130,34 @@ mkfs.ext4 "${hd}3"
 mount "${hd}3" /mnt
 
 if [ "$uefi" = 1 ]; then
-    mkfs.fat -F32 "${hd}1"
-    mkdir -p /mnt/boot/efi
-    mount "${hd}1" /mnt/boot/efi
+	mkfs.fat -F32 "${hd}1"
+	mkdir -p /mnt/boot/efi
+	mount "${hd}1" /mnt/boot/efi
 fi
 
 # Install Arch Linux! Glory and fortune!
 pacstrap /mnt base base-devel linux linux-firmware
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >>/mnt/etc/fstab
+
+# prepara /etc/fstab per poter montare la directory condivisa con host
+if [ $inst = "VM" ]; then
+	{
+		echo " "
+		echo "# shared directory with host"
+		echo "/shared    /home/$name/shared    virtiofs    defaults    0 0"
+	} >>/etc/fstab
+fi
 
 # Persist important values for the next script
-echo "$inst" > /mnt/inst
+echo "$inst" >/mnt/inst
 mkdir /mnt/root/.screenlayout
-echo "$inst" > /mnt/root/.screenlayout/var_inst
-echo "$uefi" > /mnt/var_uefi
-echo "$hd" > /mnt/var_hd
-echo "$comp" > /mnt/comp
+echo "$inst" >/mnt/root/.screenlayout/var_inst
+echo "$uefi" >/mnt/var_uefi
+echo "$hd" >/mnt/var_hd
+echo "$comp" >/mnt/comp
 
 # Don't forget to replace "Phantas0s" by the username of your Github account
-curl https://raw.githubusercontent.com/max-matty\
-/arch_installer/master/install_chroot.sh > /mnt/install_chroot.sh
+curl https://raw.githubusercontent.com/max-matty/arch_installer/master/install_chroot.sh >/mnt/install_chroot.sh
 
 arch-chroot /mnt bash install_chroot.sh
 
@@ -159,13 +168,13 @@ rm /mnt/install_chroot.sh
 rm /mnt/comp
 
 dialog --title "To reboot or not to reboot?" --yesno \
-"Congrats! The install is done! \n\n\
+	"Congrats! The install is done! \n\n\
 Some PostInstall instruction in ~/dotfiles/README.md file\n\n\
 Do you want to reboot your computer?" 20 60
 
 response=$?
 
 case $response in
-    0) reboot;;
-    1) clear;;
+0) reboot ;;
+1) clear ;;
 esac
