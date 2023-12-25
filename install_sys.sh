@@ -145,7 +145,7 @@ if [ $inst = "VM" ]; then
 		echo " "
 		echo "# shared directory with host"
 		echo "/shared    /home/$name/shared    virtiofs    defaults    0 0"
-	} >>/etc/fstab
+	} >>/mnt/etc/fstab
 fi
 
 # Persist important values for the next script

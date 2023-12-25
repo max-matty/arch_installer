@@ -23,6 +23,8 @@ tools,xcape,Configure modifier keys to act as other keys
 tools,ripgrep,Faster alternative to grep
 tools,htop,Interactive process viewer
 tools,unzip,Zip archiver
+tools,lsd,Modern ls with a lot of pretty colors and awesome icons
+tools,bat,Cat clone with syntax highlighting and git integration
 tmux,tmux,Terminal multiplexer
 tmux,tmuxp,Configure tmux session + windows + panes via config files
 notifier,dunst,Notification system
