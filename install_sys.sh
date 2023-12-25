@@ -144,7 +144,7 @@ if [ $inst = "VM" ]; then
 	{
 		echo " "
 		echo "# shared directory with host"
-		echo "/shared    /home/$name/shared    virtiofs    defaults    0 0"
+		echo "/shared    /home/max/shared    virtiofs    defaults    0 0"
 	} >>/mnt/etc/fstab
 fi
 

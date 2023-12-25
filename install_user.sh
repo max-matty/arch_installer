@@ -51,8 +51,6 @@ fi
 
 source "$DOTFILES/zsh/.zshenv"
 cd "$DOTFILES" && bash install.sh
-ln -sf /usr/share/zsh/plugins/zsh-autosuggestions "$DOTFILES/zsh/external/"
-ln -sf /usr/share/zsh/plugins/zsh-syntax-highlighting "$DOTFILES/zsh/external/"
 
 # i3-wm modifica tasto $mod in caso di VM
 if [ "$inst" = "VM" ]; then

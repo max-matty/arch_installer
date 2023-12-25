@@ -9,6 +9,8 @@ essential,vi,Text editor
 network,openssh,Remote login tool for SSH protocol
 network,networkmanager,Network manager
 network,network-manager-applet,Network manager Applet
+network,wget,Network utility to retrieve files from the Web
+network,net-tools,Configuration tools for Linux networking
 tools,rsync,Synchronizing files across computers
 tools,alsa-utils,Sound system manager
 tools,arandr,xrandr GUI
@@ -52,6 +54,7 @@ neovim,python2-neovim,Python2 for neovim (AUR)
 neovim,ruby-neovim,Ruby for neovim (AUR)
 neovim,nodejs-neovim,Nodejs for neovim (AUR)
 neovim,glow,Markdown rendering
+neovim,luarocks,Deployment and management system for Lua modules
 js,nodejs,Nodejs (for coc.vim)
 js,npm,JavaScript package manager
 js,yarn,Dependency manager (for coc.vim)
