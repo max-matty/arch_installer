@@ -41,6 +41,9 @@ i3,arc-gtk-theme,Desktop themes
 zsh,zsh,Unix shell (Z-Shell)
 zsh,zsh-completions,Additional completions for Zsh
 zsh,zsh-syntax-highlighting,Syntax highlighting for ZSH
+zsh,zsh-autosuggestions,Fish-like autosuggestions for zsh
+zsh,zsh-history-substring-search,ZSH port of Fish history search (up arrow)
+zsh,starship,The cross-shell prompt for astronauts
 neovim,neovim,Editor... and much more
 neovim,python-neovim,Python for neovim
 neovim,python2-neovim,Python2 for neovim (AUR)
@@ -61,4 +64,5 @@ pandoc,texlive-latex,Pandoc necessary packages
 pandoc,texlive-latexextra,Pandoc necessary packages
 pandoc,texlive-xetex,Pandoc necessary packages
 pandoc,texlive-fontsrecommended,Pandoc necessary packages
+pandoc,texlive-plaingeneric,Pandoc necessary packages
 spice,spice-vdagent,Spice server

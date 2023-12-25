@@ -74,6 +74,9 @@ echo "$packages" | while read -r line; do
     if [ "$line" = "networkmanager" ]; then
         systemctl enable NetworkManager.service
     fi
+    if [ "$line" = "openssh" ]; then
+        systemctl enable sshd.service
+    fi
 done
 
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
