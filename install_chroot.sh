@@ -89,8 +89,13 @@ echo "$inst" >/tmp/inst
 
 # Ask to install all your apps / dotfiles.
 # Don't forget to replace "Phantas0s" by the username of your Github account!
-dialog --title "Continue installation" --yesno \
-	"Do you want to install all your apps and your dotfiles?" \
-	10 60 &&
+if [ "$inst" = "VM" ]; then
 	curl https://raw.githubusercontent.com/max-matty/arch_installer/master/install_apps.sh >/tmp/install_apps.sh &&
-	bash /tmp/install_apps.sh
+		bash /tmp/install_apps.sh
+else
+	dialog --title "Continue installation" --yesno \
+		"Do you want to install all your apps and your dotfiles?" \
+		10 60 &&
+		curl https://raw.githubusercontent.com/max-matty/arch_installer/master/install_apps.sh >/tmp/install_apps.sh &&
+		bash /tmp/install_apps.sh
+fi
