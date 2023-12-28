@@ -11,6 +11,8 @@ network,networkmanager,Network manager
 network,network-manager-applet,Network manager Applet
 network,wget,Network utility to retrieve files from the Web
 network,net-tools,Configuration tools for Linux networking
+network,w3m,Text based web browser
+network,spice-vdagent,Spice server
 tools,rsync,Synchronizing files across computers
 tools,alsa-utils,Sound system manager
 tools,arandr,xrandr GUI
@@ -27,6 +29,11 @@ tools,htop,Interactive process viewer
 tools,unzip,Zip archiver
 tools,lsd,Modern ls with a lot of pretty colors and awesome icons
 tools,bat,Cat clone with syntax highlighting and git integration
+tools,ranger,Simple vim-like file manager
+tools,nnn,The fastest terminal file manager ever written
+tools,pacman-contrib,Gestione dei pacchetti nella cache
+media,sxiv,Simple X Image Viewer
+media,mplayer,Media player for Linux
 tmux,tmux,Terminal multiplexer
 tmux,tmuxp,Configure tmux session + windows + panes via config files
 notifier,dunst,Notification system
@@ -70,4 +77,3 @@ pandoc,texlive-latexextra,Pandoc necessary packages
 pandoc,texlive-xetex,Pandoc necessary packages
 pandoc,texlive-fontsrecommended,Pandoc necessary packages
 pandoc,texlive-plaingeneric,Pandoc necessary packages
-spice,spice-vdagent,Spice server

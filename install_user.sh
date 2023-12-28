@@ -7,7 +7,8 @@ mkdir -p "/home/$(whoami)/Downloads"
 mkdir "/home/$(whoami)/.screenlayout"
 echo "$inst" >"/home/$(whoami)/.screenlayout/var_inst"
 
-# Function able to install any package from the AUR (needs the package names as arguments).
+# Funzione per installare qualsiasi pacchetto da AUR.
+# Riceve il nome del pacchetto come argomento.
 aur_install() {
 	curl -O "https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz" &&
 		tar -xvf "$1.tar.gz" &&
@@ -27,24 +28,24 @@ aur_check() {
 	done
 }
 
-cd /tmp
-dialog --infobox "Installing \"Yay\", an AUR helper..." 10 60
+cd /tmp || exit
+dialog --infobox "Installazione Yay, AUR helper..." 10 60
 aur_check yay
 
 count=$(wc -l </tmp/aur_queue)
 c=0
 
-cat /tmp/aur_queue | while read -r line; do
+while read -r line; do
 	c=$(("$c" + 1))
 	dialog --infobox \
-		"AUR install - Downloading and installing program $c out of $count: $line..." \
+		"AUR - Scarico ed installo il programma $c di $count: $line..." \
 		10 60
 	aur_check "$line"
-done
+done </tmp/aur_queue
 
 DOTFILES="/home/$(whoami)/dotfiles"
 if [ ! -d "$DOTFILES" ]; then
-	# Don't forget to replace Phantas0s with your own username on Github
+	# Scarica il repository con i dotfiles
 	git clone https://github.com/max-matty/dotfiles.git \
 		"$DOTFILES" >/dev/null
 fi
@@ -52,12 +53,12 @@ fi
 source "$DOTFILES/zsh/.zshenv"
 cd "$DOTFILES" && bash install.sh
 
-# i3-wm modifica tasto $mod in caso di VM
+# i3-wm: modifica tasto $mod in caso di VM
 if [ "$inst" = "VM" ]; then
 	cd "$DOTFILES/i3/" && sed -i 's/Mod4/Mod1/' config
 fi
 
 # crea la directory condivisa in guest
-if [ $inst = "VM" ]; then
+if [ "$inst" = "VM" ]; then
 	mkdir "/home/$(whoami)/shared"
 fi

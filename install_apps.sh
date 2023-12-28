@@ -5,18 +5,21 @@ inst=$(cat /tmp/inst)
 
 apps_path="/tmp/apps.csv"
 
-# Don't forget to replace "Phantas0s" by the username of your Github account
+# Scarica elenco delle apps
 curl https://raw.githubusercontent.com/max-matty\
 /arch_installer/master/apps.csv > $apps_path
 
-dialog --title "Welcome!" \
---msgbox "Welcome to the install script for your apps and dotfiles!" \
+if [ "$inst" != "VM" ]; then
+  dialog --title "Benvenuto!" \
+    --msgbox "Script di installazione pacchetti aggiuntivi e dotfiles!" \
     10 60
+fi
 
-# Allow the user to select the group of packages he (or she) wants to install.
+# Array con elenco tipologia di apps da cui scegliere cosa installare
 apps=("essential" "Essentials" on
       "network" "Network" on
       "tools" "Nice tools to have (highly recommended)" on
+      "media" "Multimedia apps" on
       "tmux" "Tmux" on
       "notifier" "Notification tools" on
       "git" "Git & git tools" on
@@ -27,18 +30,17 @@ apps=("essential" "Essentials" on
       "chromium" "Chromium (browser)" on
       "pandoc" "Pandoc" on
       "js" "JavaScript tooling" on
-      "zathura" "Zathura (pdf viewer)" on
-      "spice" "Spice server (for VM)" on)
+      "zathura" "Zathura (pdf viewer)" on)
 
 dialog --checklist \
-"You can now choose what group of application you want to install. \n\n\
-You can select an option with SPACE and valid your choices with ENTER." \
+"Scegli quali categorie di applicazioni installare. \n\n\
+Selezionare l'opzione tramnite SPAZIO, confermare con INVIO." \
 0 0 0 \
 "${apps[@]}" 2> app_choices
 choices=$(cat app_choices) && rm app_choices
 
 # Create a regex to only select the packages we want
-selection="^$(echo $choices | sed -e 's/ /,|^/g'),"
+selection="^$(echo "$choices" | sed -e 's/ /,|^/g'),"
 lines=$(grep -E "$selection" "$apps_path")
 count=$(echo "$lines" | wc -l)
 packages=$(echo "$lines" | awk -F, {'print $2'})
@@ -49,39 +51,47 @@ pacman -Syu --noconfirm
 
 rm -f /tmp/aur_queue
 
-dialog --title "Let's go!" --msgbox \
-"The system will now install everything you need.\n\n\
-It will take some time.\n\n " \
-13 60
+if [ "$inst" != "VM" ]; then
+  dialog --title "Perfetto!" --msgbox \
+    "Verrà installato tutto quanto è stato selezionato.\n\n\
+    Ci vorrà qualche minuto.\n\n " \
+    13 60
+fi
 
 c=0
 echo "$packages" | while read -r line; do
     c=$(( "$c" + 1 ))
 
-    dialog --title "Arch Linux Installation" --infobox \
-    "Downloading and installing program $c out of $count: $line..." \
+    dialog --title "Installazione Arch Linux" --infobox \
+    "Download ed installazione programma $c di $count: $line..." \
     8 70
 
     ((pacman --noconfirm --needed -S "$line" > /tmp/arch_install 2>&1) \
     || echo "$line" >> /tmp/aur_queue) \
     || echo "$line" >> /tmp/arch_install_failed
 
+    # pacchetto 'zsh' imposta come shell di default
     if [ "$line" = "zsh" ]; then
-        # Set Zsh as default terminal for our user
         chsh -s "$(which zsh)" "$name"
     fi
 
+    # pacchetto 'networkmanager'
     if [ "$line" = "networkmanager" ]; then
         systemctl enable NetworkManager.service
     fi
+
+    # pacchetto 'openssh'
     if [ "$line" = "openssh" ]; then
         systemctl enable sshd.service
     fi
 done
 
+# elimina tutta la cache
+paccache -qf -rk 0
+
 echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
 
-# Set locale for X server
+# Imposta layout della tastiera per ambiente 'X'
 {
   echo 'Section "InputClass"'
   echo '        Identifier "system-keyboard"'
@@ -90,12 +100,12 @@ echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
   echo 'EndSection'
 } >>/etc/X11/xorg.conf.d/00-keyboard.conf
 
-# Persist important values for the next script
+# Scrive la variabili per il successivo script 'install_user.sh'
 echo "$inst" > /tmp/inst
 
-# Don't forget to replace "Phantas0s" by the username of your Github account
+# Scarica lo script 'install_user.sh'
 curl https://raw.githubusercontent.com/max-matty\
 /arch_installer/master/install_user.sh > /tmp/install_user.sh;
 
-# Switch user and run the final script
+# Cambia utente ed esegue lo script finale
 sudo -u "$name" sh /tmp/install_user.sh

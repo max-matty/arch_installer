@@ -8,7 +8,7 @@ comp=$(cat /comp)
 echo "$comp" >/etc/hostname && rm /comp
 
 pacman --noconfirm -S dialog
-
+pacman --noconfirm -S pacman-contrib
 pacman -S --noconfirm grub
 
 if [ "$uefi" = 1 ]; then
@@ -22,79 +22,76 @@ fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# Set hardware clock from system clock
+# Imposta hardware clock da system clock
 hwclock --systohc
-# Don't forget to change "Europe/Berlin" with your own timezone!
-# To list the timezones: `timedatectl list-timezones`
+# Imposta il fuso orario
 ln -sf /usr/share/zoneinfo/Europe/Rome /etc/localtime
 
-# Replace en_US.UTF-8 by whatever locale you want.
-# You can run `cat /etc/locale.gen` to see all the locales available
+# Imposta la lingua utilizzata
 echo "en_US.UTF-8 UTF-8" >>/etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >/etc/locale.conf
 
-# Set the keymap layout if you don't use an EN_US keyboard. Replace "fr-latin1" by the keyboard layout you want.
-# loadkeys fr-latin1
+# Imposta il layout della tastiera
 echo "KEYMAP=it" >>/etc/vconsole.conf
 
-# No argument: ask for a username.
-# One argument: use the username passed as argument.
+# Funzione di creazione utente ed impostazione password.
+# - senza argomenti: chiede nome utente.
+# - con argomento: lo utilizza come nome utente.
 function config_user() {
 	if [ -z "$1" ]; then
-		dialog --no-cancel --inputbox "Please enter your username." \
+		dialog --no-cancel --inputbox "Inserire username." \
 			10 60 2>name
 	else
 		echo "$1" >name
 	fi
-	dialog --no-cancel --passwordbox "Enter your password." \
+	dialog --no-cancel --passwordbox "Inserire password." \
 		10 60 2>pass1
-	dialog --no-cancel --passwordbox "Confirm your password." \
+	dialog --no-cancel --passwordbox "Conferma password." \
 		10 60 2>pass2
 	while [ "$(cat pass1)" != "$(cat pass2)" ]; do
 		dialog --no-cancel --passwordbox \
-			"Passwords do not match.\n\nEnter password again." \
+			"Le password inserite non coincidono." \
 			10 60 2>pass1
 		dialog --no-cancel --passwordbox \
-			"Retype your password." \
+			"Ripetere l'inserimento." \
 			10 60 2>pass2
 	done
 
 	name=$(cat name) && rm name
 	pass1=$(cat pass1) && rm pass1 pass2
 
-	# Create user if doesn't exist
+	# Creazione dell'utente se non esiste
 	if [[ ! "$(id -u "$name" 2>/dev/null)" ]]; then
-		dialog --infobox "Adding user $name..." 4 50
+		dialog --infobox "Aggiunta utente $name..." 4 50
 		useradd -m -g wheel -s /bin/bash "$name"
 	fi
 
-	# Add password to user
+	# Aggiunge la password
 	echo "$name:$pass1" | chpasswd
 }
 
-dialog --title "root password" \
-	--msgbox "It's time to add a password for the root user" \
+dialog --title "Password di root" \
+	--msgbox "Inserire la password dell'utente root" \
 	10 60
 config_user root
 
-dialog --title "Add User" \
-	--msgbox "Let's create another user." \
+dialog --title "Aggiunta nuovo utente" \
+	--msgbox "Creazione di un nuovo utente del sistema." \
 	10 60
 config_user
 
-# Persist important values for the next script
+# Scrive valori delle variabili per il prossimo script 'install_apps.sh'
 echo "$name" >/tmp/user_name
 echo "$inst" >/tmp/inst
 
-# Ask to install all your apps / dotfiles.
-# Don't forget to replace "Phantas0s" by the username of your Github account!
+# Chiede se installare altre apps e dotfiles.
 if [ "$inst" = "VM" ]; then
 	curl https://raw.githubusercontent.com/max-matty/arch_installer/master/install_apps.sh >/tmp/install_apps.sh &&
 		bash /tmp/install_apps.sh
 else
-	dialog --title "Continue installation" --yesno \
-		"Do you want to install all your apps and your dotfiles?" \
+	dialog --title "Continuazione installazione" --yesno \
+		"Vuoi installare tutte le tue applicazioni e dotfiles?" \
 		10 60 &&
 		curl https://raw.githubusercontent.com/max-matty/arch_installer/master/install_apps.sh >/tmp/install_apps.sh &&
 		bash /tmp/install_apps.sh
