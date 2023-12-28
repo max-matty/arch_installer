@@ -82,7 +82,12 @@ echo "$packages" | while read -r line; do
 
     # pacchetto 'openssh'
     if [ "$line" = "openssh" ]; then
-        systemctl enable sshd.service
+      systemctl enable sshd.service
+      # Permette di eseguire applicazioni grafiche
+      # tramite il Server 'X' della macchina host
+      if [ "$inst" = "VM" ]; then
+        echo "X11Forwarding yes" >>/etc/ssh/sshd.config
+      fi
     fi
 done
 

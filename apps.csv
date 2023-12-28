@@ -62,6 +62,7 @@ neovim,ruby-neovim,Ruby for neovim (AUR)
 neovim,nodejs-neovim,Nodejs for neovim (AUR)
 neovim,glow,Markdown rendering
 neovim,luarocks,Deployment and management system for Lua modules
+neovim.shellcheck,Bash and Sh linter
 js,nodejs,Nodejs (for coc.vim)
 js,npm,JavaScript package manager
 js,yarn,Dependency manager (for coc.vim)

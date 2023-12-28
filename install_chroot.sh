@@ -69,6 +69,11 @@ function config_user() {
 
 	# Aggiunge la password
 	echo "$name:$pass1" | chpasswd
+
+	# Aggiungo l'utente al gruppo 'audio'
+	if [ "$inst" = "VM" ]; then
+		usermod -aG audio "$name"
+	fi
 }
 
 dialog --title "Password di root" \

@@ -7,8 +7,8 @@ timedatectl set-ntp true
 
 # Messaggio di benvenuto tipo 'yesno' - vedi `man dialog`
 dialog --defaultno --title "Istruzioni e conferma installazione" --yesno \
-	"Arch Installer personale (thanks to Matthieu Cneude). \n\n\
-E' consigliabile leggere README.md prima di procedere. \n\n\
+	"\nArch Installer personale (thanks to Matthieu Cneude). \n\
+E' consigliabile leggere README.md prima di procedere. \n\
 La presente installazione cancellerà completamente il disco! \n\n\
 Si conferma di procedere?" 15 60 || exit
 
@@ -22,9 +22,9 @@ uefi=0
 ls /sys/firmware/efi/efivars 2>/dev/null && uefi=1
 
 # Verifica installazione HD/VM
-dialog --title "Installazione OS" --no-cancel --radiolist \
+dialog --title "Destinazione installazione" --no-cancel --radiolist \
 	"\nDove vuoi installare il sistema operativo? \n\
-Selezione tramite SPAZIO, conferma con ENTER.\n\n" \
+Seleziona tramite SPAZIO, conferma con ENTER.\n\n" \
 	12 50 3 "HD" "Hard Disk" off "VM" "Macchina Virtuale" on 2>inst
 
 inst=$(cat inst) && rm inst
@@ -37,7 +37,7 @@ else
 		grep -E 'sd|hd|vd|nvme|mmcblk')
 
 	dialog --title "Scelta del disco" --no-cancel --radiolist \
-		"Dove si vuole installare il nuovo Sistema Operativo (OS)? \n\n\
+		"\nSu quale disco vuoi installare Archlinux? \n\
       Selezione con SPAZIO e conferma con INVIO. \n\n\
         AVVERTIMENTO: Il contenuto del disco verrà distrutto!" \
 		15 60 4 "${devices_list[@]}" 2>hd
@@ -180,7 +180,7 @@ rm /mnt/comp
 [ "$inst" = "VM" ] && reboot
 
 dialog --title "Scelta se riavviare?" --yesno \
-	"Tutto completato! Il sistema è stato installato! \n\n\
+	"\nTutto completato! Il sistema è stato installato! \n\
 Per alcune configurazioni Post Installazione si consiglia di \n\
 leggere le istruzioni contenute in ~/dotfiles/README.md file\n\n\
 Riavviare il computer?" 20 60
