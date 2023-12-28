@@ -94,10 +94,7 @@ done
 # elimina tutta la cache
 paccache -qf -rk 0
 
-{
-  echo "%wheel ALL=(ALL) ALL"
-  echo "%wheel ALL=(ALL) NOPASSWD: /usr/bin/yay"
-} >>/etc/sudoers
+echo "%wheel ALL=(ALL) ALL" >>/etc/sudoers
 
 # Imposta layout della tastiera per ambiente 'X'
 {
