@@ -1,7 +1,6 @@
 essential,xorg,X server
 essential,xorg-xinit,Display server boot
 essential,os-prober,GRUB Find external OS
-essential,man,Manual
 essential,man-pages,Manual pages
 essential,tldr,Manual pages
 essential,fd,Find entries in Filesystem
@@ -37,7 +36,6 @@ media,mplayer,Media player for Linux
 tmux,tmux,Terminal multiplexer
 tmux,tmuxp,Configure tmux session + windows + panes via config files
 notifier,dunst,Notification system
-notifier,libnotify,Notifier
 git,git,Version control system
 git,git-delta,Syntax highlighting fot git
 git,diff-so-fancy,Human readable git diff
@@ -49,15 +47,14 @@ i3,dmenu,Dynamic menu for X
 i3,rofi,Dynamic menu for X
 i3,feh,X11 image viewer
 i3,arc-gtk-theme,Desktop themes
+i3,nitrogen,Set Wallpapers
 zsh,zsh,Unix shell (Z-Shell)
 zsh,zsh-completions,Additional completions for Zsh
 zsh,zsh-syntax-highlighting,Syntax highlighting for ZSH
 zsh,zsh-autosuggestions,Fish-like autosuggestions for zsh
 zsh,zsh-history-substring-search,ZSH port of Fish history search (up arrow)
-zsh,starship,The cross-shell prompt for astronauts
 neovim,neovim,Editor... and much more
 neovim,python-neovim,Python for neovim
-neovim,python2-neovim,Python2 for neovim (AUR)
 neovim,ruby-neovim,Ruby for neovim (AUR)
 neovim,nodejs-neovim,Nodejs for neovim (AUR)
 neovim,glow,Markdown rendering
@@ -70,7 +67,6 @@ urxvt,rxvt-unicode,Terminal Urxvt
 urxvt,urxvt-tabbedex-mina86-git,Improved tabs for Urxvt (AUR)
 chromium,chromium,Browser Chromium
 zathura,zathura-pdf-mupdf,Pdf viewer
-pandoc,groff,Document formatting system
 pandoc,pandoc-cli,Pandoc necessary packages
 pandoc,texlive-basic,Pandoc necessary packages
 pandoc,texlive-latex,Pandoc necessary packages

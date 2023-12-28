@@ -43,6 +43,9 @@ while read -r line; do
 	aur_check "$line"
 done </tmp/aur_queue
 
+# Pulisce la cache di Yay
+yay --noconfirm -Sc --aur
+
 DOTFILES="/home/$(whoami)/dotfiles"
 if [ ! -d "$DOTFILES" ]; then
 	# Scarica il repository con i dotfiles

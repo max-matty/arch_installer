@@ -86,7 +86,7 @@ echo "$packages" | while read -r line; do
       # Permette di eseguire applicazioni grafiche
       # tramite il Server 'X' della macchina host
       if [ "$inst" = "VM" ]; then
-        echo "X11Forwarding yes" >>/etc/ssh/sshd.config
+        echo "X11Forwarding yes" >>/etc/ssh/sshd_config
       fi
     fi
 done
@@ -94,7 +94,10 @@ done
 # elimina tutta la cache
 paccache -qf -rk 0
 
-echo "%wheel ALL=(ALL) ALL" >> /etc/sudoers
+{
+  echo "%wheel ALL=(ALL) ALL"
+  echo "%wheel ALL=(ALL) NOPASSWD: /usr/bin/yay"
+} >>/etc/sudoers
 
 # Imposta layout della tastiera per ambiente 'X'
 {
