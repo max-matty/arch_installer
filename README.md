@@ -2,7 +2,7 @@
 
 ## Preparare la Macchina Virtuale con `virt-manager`
 
-### File 'iso' installazione
+### File ISO da utilizzare
 
 Arch Linux mensile, ad esempio:
 
@@ -14,7 +14,7 @@ Arch Linux mensile, ad esempio:
 > Core 1
 > HD 10GM
 
-**NB** Flaggare la configurazione dell'hardwar prima dell'installazione.
+**NB** Flaggare la configurazione dell'hardware prima di avviare l'installazione.
 
 ### Cartella condivisa
 
@@ -38,8 +38,7 @@ Avviare l'installazione.
 
 ## Primo avvio in caso di Macchina Virtuale
 
-L'automazione prevede la scelta tra l'installazione su Hard Disk fisico (`HD`) oppure su Macchina Virtuale (`VM`).  
-La scelta comporta il salvataggio della variabile `~/.screenlayout/var_inst` che viene verificata all'avvio della macchina impostando la configurazione schermo a 800x600 che può poi essere adattata allo schermo sia del portatile Asus che del display Samsung tramite la combinazione di tasti `$mod+a`.
+La scelta comporta il salvataggio della variabile `~/.screenlayout/var_inst` che viene verificata all'avvio della macchina per impostare, in ambiente 'X', la configurazione schermo a 800x600 che può poi essere adattata allo schermo sia del portatile Asus che del display Samsung tramite la combinazione di tasti `$mod+a`.
 
 ## Inizializzazione Neovim e Tmux
 
@@ -75,7 +74,11 @@ Con `PREFIX` che è la combinazione tasti `Ctrl+Space`.
 
 ## Utilizzo di Spice Viewer
 
-E' cosigliabile fare partire la macchina dal viewer Spice per una migliore gestione del cambio Workspace in `i3-wm` nella macchina _Host_. E' già configurata in `i3-wm` (lato _Host_) la combinazione tasti `$mod+Mod1+[0-9]` per avviare 10 VM. Per collegare la singola VM è sufficiente impostare da `virt-manager` la porta _Spice_ all'interno del componente _Display Spice_, esempio: 5901 per la combinazione `$mod+Mod1+1` fino a 5010 per la combinazione `$mod+Mod1+0`.
+E' consigliabile fare partire la macchina dal visualizzatore _Spice_ per una migliore gestione del cambio di Workspace in `i3-wm` nella macchina _Host_.
+
+E' già configurata in `i3-wm` (lato _Host_) la combinazione tasti `$mod+Control+[0-9]` per avviare 10 VM.
+
+Per collegare la singola VM è sufficiente impostare da `virt-manager` la porta _Spice_ all'interno del componente _Display Spice_, esempio: 5900 per la combinazione `$mod+Control+0` fino a 5009 per la combinazione `$mod+Control+9`.
 
 ## Utilizzo di ssh
 
@@ -91,9 +94,12 @@ Per trovare l'indirizzo IP sulla rete digitare:
 
 `$ arp -n`
 
-## Primo utilizzo di github
+Sono stati configurati sulla macchina _Host_ gli _alias_ per fare partire le 10 macchine virtuali e per stopparle come segue: `startVM-00` e `stopVM-00`.
 
-Chiederà:
+### Files Multimediali
 
-- nome: Massimo Fontanta
-- email: maxmatty@gmail.com
+Quando ci colleghiamo tramite `ssh` è impostata di default la possibilità di eseguire applicazioni grafiche utilizzando il Server X della macchina _Host_.
+
+## Github
+
+Al primo utilizzo ci verrà chiesto di inserire nome ed indirizzo email.

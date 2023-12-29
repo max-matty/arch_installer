@@ -31,6 +31,7 @@ tools,bat,Cat clone with syntax highlighting and git integration
 tools,ranger,Simple vim-like file manager
 tools,nnn,The fastest terminal file manager ever written
 tools,pacman-contrib,Gestione dei pacchetti nella cache
+tools,ncdu,Analisi spazio su disco
 media,sxiv,Simple X Image Viewer
 media,mplayer,Media player for Linux
 tmux,tmux,Terminal multiplexer
